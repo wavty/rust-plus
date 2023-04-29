@@ -1,0 +1,16 @@
+{
+    "settings": {
+      "rust.analyzer.diagnostics.disabled": [
+        "unresolved-import",
+        "unused-imports",
+        "unused-variables",
+        "unused-arguments",
+        "dead-code",
+        "unused-unsafe",
+        "unused-mut",
+        "unused-macro",
+        "unused-type-params"
+      ]
+    }
+}
+  
