@@ -1,6 +1,6 @@
 # Rust Plus
 
-Rust Plus是一个用于保存在学习Rust编程语言时编写的验证代码的项目。它包含了许多简单的代码示例，这些示例可以帮助您了解Rust的语法和特性，同时还包含了一些较为复杂的示例，以帮助您更深入地了解Rust的应用场景。
+Rust Plus是一个用于保存在学习Rust编程语言时编写的代码示例的项目。它包含了许多简单和复杂的代码示例，以帮助您了解Rust的语法和特性，并深入了解Rust的应用场景。
 
 ## 特性
 
@@ -18,7 +18,7 @@ Rust Plus可以通过以下步骤进行使用：
 1. 下载或克隆Rust Plus项目到本地：
 
 ```
-git clone https://gitlab.com/wavty/rust-plus.git
+git clone https://github.com/wavty/rust-plus.git
 ```
 
 2. 根据您需要学习的Rust特性或场景，浏览项目中的代码示例。
@@ -29,7 +29,7 @@ git clone https://gitlab.com/wavty/rust-plus.git
 
 我们欢迎并鼓励任何形式的贡献，包括但不限于提交错误修复、改进代码质量、添加新的示例代码等。如果您希望为Rust Plus做出贡献，请通过以下方式联系我们：
 
-1. 提交GitLab Issue，说明您发现的问题或需要改进的内容。
+1. 提交GitHub Issue，说明您发现的问题或需要改进的内容。
 2. 提交Pull Request，修复现有问题或添加新的代码示例。
 
 我们感谢您的贡献！
