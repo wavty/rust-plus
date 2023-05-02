@@ -1,3 +1,18 @@
+- [1. Rust 中变量、常量和静态变量的定义](#1-rust-中变量常量和静态变量的定义)
+- [2. rust 中有 void 类型吗？](#2-rust-中有-void-类型吗)
+- [3. 简单讲述一下 rust 里面的 unit 类型](#3-简单讲述一下-rust-里面的-unit-类型)
+- [4. 举个使用 Option 类型的例子](#4-举个使用-option-类型的例子)
+- [5. 空结构体、元组结构体、普通结构体的定义与区别](#5-空结构体元组结构体普通结构体的定义与区别)
+  - [空结构体](#空结构体)
+  - [元组结构体](#元组结构体)
+  - [普通结构体](#普通结构体)
+- [6. 简单讲述一下 rust 中模块之间的嵌套关系](#6-简单讲述一下-rust-中模块之间的嵌套关系)
+- [7. 为什么在使用单元测试的时候需要将 src/fig.rs 嵌套在 src/lib.rs ？](#7-为什么在使用单元测试的时候需要将-srcfigrs-嵌套在-srclibrs-)
+- [8. 可以在一个 crate 中同时包含 src/lib.rs 和 src/main.rs 两个入口文件吗?](#8-可以在一个-crate-中同时包含-srclibrs-和-srcmainrs-两个入口文件吗)
+- [9. 常用的 cargo new 标志](#9-常用的-cargo-new-标志)
+- [10. rust 怎样跨平台生成指定类型的二进制文件？](#10-rust-怎样跨平台生成指定类型的二进制文件)
+- [11. 索引使用方式总结](#11-索引使用方式总结)
+
 ## 1. Rust 中变量、常量和静态变量的定义
 
 下表展示了 Rust 中变量、常量和静态变量的定义、说明以及举例使用：
@@ -244,3 +259,18 @@ cargo build --target x86_64-pc-windows-msvc
 ```
 
 交叉编译时需要注意目标平台的架构和操作系统类型。Rust 提供了许多目标平台，具体可以查看官方文档：[https://doc.rust-lang.org/nightly/rustc/platform-support.html](https://doc.rust-lang.org/nightly/rustc/platform-support.html)。
+
+## 11. 索引使用方式总结
+
+| 索引语法             | 含义                                                                 | 使用例子                     |
+| -------------------- | -------------------------------------------------------------------- | ---------------------------- |
+| `array[0]`           | 访问数组中的第一个元素                                               | `let x = array[0];`          |
+| `array[n]`           | 访问数组中的第 n+1 个元素，其中 n 是一个整数，n 的值必须小于数组长度 | `let x = array[2];`          |
+| `array[..]`          | 访问整个数组                                                         | `let x = &array[..];`        |
+| `array[start..end]`  | 访问从索引 start 开始到索引 end-1 结束的所有元素                     | `let x = &array[2..5];`      |
+| `array[..end]`       | 访问从索引 0 开始到索引 end-1 结束的所有元素                         | `let x = &array[..5];`       |
+| `array[start..]`     | 访问从索引 start 开始到数组末尾的所有元素                            | `let x = &array[2..];`       |
+| `array[start..=end]` | 访问从索引 start 开始到索引 end 结束的所有元素                       | `let x = &array[2..=5];`     |
+| `array[usize::MAX]`  | 访问数组中的最后一个元素                                             | `let x = array[usize::MAX];` |
+
+需要注意的是，Rust 数组的索引必须是 usize 类型。否则会编译错误。
