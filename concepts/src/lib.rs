@@ -1,3 +1,5 @@
+mod fib;
+mod fig;
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -89,4 +91,12 @@ pub fn process_event(event: &Event) {
             );
         }
     }
+}
+
+pub fn create_user(id: UserId, name: String, gender: Gender) -> User {
+    User { id, name, gender }
+}
+
+pub fn create_topic(id: TopicId, name: String, owner: UserId) -> Topic {
+    Topic { id, name, owner }
 }

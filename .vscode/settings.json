@@ -1,16 +1,8 @@
 {
-    "settings": {
-      "rust.analyzer.diagnostics.disabled": [
-        "unresolved-import",
-        "unused-imports",
-        "unused-variables",
-        "unused-arguments",
-        "dead-code",
-        "unused-unsafe",
-        "unused-mut",
-        "unused-macro",
-        "unused-type-params"
-      ]
-    }
+  // https://github.com/rust-lang/rust-analyzer/issues/11495#issuecomment-1045731711
+  "rust-analyzer.diagnostics.warningsAsHint": [
+    "dead_code", 
+    "unused_variables",
+  ],
 }
   
