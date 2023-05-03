@@ -8,10 +8,28 @@ nav:
 theme:
   name: material
   codehilite: true
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/weather-night
+        name: 暗色模式
+    - media: "(prefers-color-scheme: dark)"
+      primary: teal
+      scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: 亮色模式
 
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
+  - admonition #MkDocs 警告框
+  - footnotes #脚注
+  - meta #自定义文章元数据
+  - pymdownx.caret #下划线
+  - pymdownx.mark #文本高亮
+  - pymdownx.tilde #删除线
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences

@@ -6,7 +6,7 @@
 
 如果你想在本地预览该笔记，你可以按照以下步骤操作：
 
-1. 安装 mkdocs：`pip3 install mkdocs`
+1. 安装 mkdocs：`pip3 install mkdocs mkdocs-material`
 2. 克隆该项目到本地：`git clone https://github.com/wavty/rust-plus.git`
 3. 进入项目目录：`cd rust-plus`
 4. 启动预览服务器：`mkdocs serve`
