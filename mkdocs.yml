@@ -1,0 +1,15 @@
+site_name: rust-plus
+docs_dir: ./docs
+nav:
+  - Home: index.md
+  - Concepts:
+      - concepts/concepts.md
+# https://juejin.cn/post/7066641709198737416
+theme:
+  name: material
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
