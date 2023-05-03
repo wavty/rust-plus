@@ -1,15 +1,24 @@
 site_name: rust-plus
 docs_dir: ./docs
 nav:
-  - Home: index.md
-  - Concepts:
+  - 首页: index.md
+  - 基础知识:
       - concepts/concepts.md
 # https://juejin.cn/post/7066641709198737416
 theme:
   name: material
+  codehilite: true
+
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+  - codehilite:
+      use_pygments: true
+      linenums: true
+
+# Repository https://squidfunk.github.io/mkdocs-material/setup/adding-a-git-repository/#adding-a-git-repository
+repo_name: wavty/rust-plus
+repo_url: https://github.com/wavty/rust-plus
