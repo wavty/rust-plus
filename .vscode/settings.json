@@ -1,9 +1,9 @@
 {
   // https://github.com/rust-lang/rust-analyzer/issues/11495#issuecomment-1045731711
   "rust-analyzer.diagnostics.warningsAsHint": [
-    "dead_code", 
+    "dead_code",
     "unused_variables",
-    "unused_assignments",
+    "unused_assignments"
   ],
+  "rust-analyzer.linkedProjects": ["./Cargo.toml"]
 }
-  

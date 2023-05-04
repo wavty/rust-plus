@@ -5,6 +5,14 @@ mod tests {
     use super::*;
 
     #[test]
+    fn test_process_message() {
+        let event = Event::Message(UserId(1), TopicId(1), "Hello, world!".into());
+        if let Event::Message(_, _, msg) = event {
+            println!("msg: {}", msg);
+        }
+    }
+
+    #[test]
     fn test_main() {
         let alice = User {
             id: UserId(1),

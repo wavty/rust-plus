@@ -1,6 +1,6 @@
 [workspace]
 
 members = [
-    "src",
     "concepts",
+    "src/scrape_url",
 ]
