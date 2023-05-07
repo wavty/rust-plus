@@ -32,4 +32,11 @@ mod tests {
             Err(error) => println!("Failed to read {}: {}", filename, error),
         }
     }
+
+    #[test]
+    fn test_for_env_vars() {
+        for arg in std::env::args() {
+            println!("{}", arg);
+        }
+    }
 }

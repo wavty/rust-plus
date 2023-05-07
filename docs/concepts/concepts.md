@@ -329,7 +329,65 @@ fn main() {
 
 上面的代码中，`read_file_contents` 函数会尝试打开一个文件并读取其中的内容，如果一切正常，它将返回一个包含文件内容的 `Ok` 变量；否则，它将返回一个包含错误信息的 `Err` 变量。在 `main` 函数中，使用 `match` 语句处理 `read_file_contents` 的返回值。如果返回的是 `Ok` 变量，就将文件内容打印出来；如果返回的是 `Err` 变量，就将错误信息打印出来。
 
-这样的写法可以使代码更加清晰易读，也更容易排查和解决错误。运行代码见：[readfile.rs](../../concepts/src/readfile.rs)。
+这样的写法可以使代码更加清晰易读，也更容易排查和解决错误。运行代码见：[readfile.rs](https://github.com/wavty/rust-plus/blob/main/concepts/src/readfile.rs)。
 
-## 15. rust里面的 ? 运算符的作用是什么
+## 16. rust 里面的 ? 运算符的作用是什么
 
+在 Rust 中，`?` 是一种简便的错误处理语法糖，用于在函数中返回 `Result` 或 `Option` 类型时，将错误信息传播给调用方。
+
+具体来说，`?` 可以被看作是一个简化的 `match` 表达式，用于检查 `Result` 或 `Option` 类型的值，如果值是 `Ok` 或 `Some` 则返回其包含的值，否则将错误或 `None` 值返回给调用方。这样，使用 `?` 运算符可以将错误处理逻辑内敛在函数中，减少代码的嵌套层数和提高可读性。
+
+下面是一个使用 `?` 运算符的例子：
+
+```rust
+use std::fs::File;
+use std::io::Read;
+
+fn read_file_contents(path: &str) -> std::io::Result<String> {
+    let mut file = File::open(path)?;
+    let mut contents = String::new();
+    file.read_to_string(&mut contents)?;
+    Ok(contents)
+}
+```
+
+在这个例子中，`File::open` 和 `file.read_to_string` 方法都返回 `std::io::Result` 类型，使用 `?` 运算符可以在出现错误时将其传递给调用方，最终返回一个 `Result<String, std::io::Error>` 类型的结果。
+
+## 17. 解释一下这个 cargo 指令: `cargo.exe test --package concepts --lib -- readfile::tests::test_for_env_vars --exact --nocapture`
+
+这是一个运行 Rust 项目中指定测试的 Cargo 命令，各个参数的含义如下：
+
+- `test`：运行测试命令。
+- `--package concepts`：指定要测试的包名，这里是 `concepts`。
+- `--lib`：只测试库文件，不包括二进制可执行文件。
+- `-- readfile::tests::test_for_env_vars`：只运行特定的测试，即 `readfile::tests::test_for_env_vars`。其中，`readfile` 是一个模块名，`tests` 是该模块的测试模块名，`test_for_env_vars` 是具体的测试用例名。
+- `--exact`：只运行指定的测试用例。
+- `--nocapture`：不捕获测试的输出。
+
+总的来说，这个指令的作用是在指定包的库文件中运行指定的测试用例，并打印测试输出，以方便查看测试结果。
+
+## 18. 什么是 lazy_static
+
+`lazy_static` 是一个 Rust crate，它提供了一种简便的方法来创建静态变量，并且仅在第一次访问变量时初始化。这种延迟初始化的方式可以在程序运行时减少内存的使用和初始化时间。
+
+在 Rust 中，静态变量通常使用 `static` 关键字创建，并且必须在编译时初始化，这意味着无法在运行时根据某些条件来初始化变量。而使用 `lazy_static`，我们可以将变量的初始化推迟到第一次访问变量时，因此我们可以在程序运行时决定是否要初始化变量。
+
+`lazy_static` crate 提供了一个宏 `lazy_static!`，可以用来定义静态变量。例如：
+
+```rust
+use lazy_static::lazy_static;
+use std::collections::HashMap;
+
+lazy_static! {
+    static ref CONFIG_MAP: HashMap<String, String> = {
+        let mut m = HashMap::new();
+        m.insert("key1".to_string(), "value1".to_string());
+        m.insert("key2".to_string(), "value2".to_string());
+        m
+    };
+}
+```
+
+这段代码创建了一个 `CONFIG_MAP` 静态变量，它是一个 `HashMap`，在第一次访问该变量时才会初始化。这里使用了 Rust 的 `ref` 关键字来创建一个引用类型的静态变量，这样可以避免在静态变量创建时发生所有权转移的问题。
+
+`lazy_static` crate 还支持许多其他的特性，例如使用 Mutex 来保证线程安全等。
