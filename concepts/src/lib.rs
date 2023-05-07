@@ -1,5 +1,7 @@
 mod fib;
 mod fig;
+mod readfile;
+
 #[cfg(test)]
 mod tests {
     use super::*;

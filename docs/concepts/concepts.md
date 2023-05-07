@@ -261,3 +261,75 @@ cargo build --target x86_64-pc-windows-msvc
 | `array[usize::MAX]`  | 访问数组中的最后一个元素                                             | `let x = array[usize::MAX];` |
 
 需要注意的是，Rust 数组的索引必须是 usize 类型。否则会编译错误。
+
+## 12. rust 里面的 unwrap 函数的设计理念
+
+在 Rust 中，`unwrap()` 函数是 `Option` 和 `Result` 两个重要枚举类型的方法之一，其设计理念主要是为了在编写代码时方便快捷地处理简单情况，例如：获取一个值时，如果存在，就返回该值；如果不存在，则直接 panic。这种方式对于初学者来说非常简单易懂，可以快速进行开发。但是，在生产环境中，建议使用更为严谨的错误处理方式，如在 `unwrap()` 函数的基础上进行进一步的错误处理或者使用其他的错误处理方式，避免程序出现意外错误而导致崩溃。
+
+## 13. 举一个 Option 类型使用 unwrap 函数的例子
+
+Option 类型是 Rust 语言中一种常用的枚举类型，它可以表示某个值存在或不存在。在使用 Option 类型时，有时候需要获取 Option 中的值，这时就可以使用 unwrap 函数。
+
+例如，假设有一个名为`x`的 Option 类型变量，我们可以使用`unwrap`函数来获取它的值，如下所示：
+
+```rust
+let x: Option<i32> = Some(5);
+let value = x.unwrap();
+println!("value: {}", value); // output: value: 5
+```
+
+在这个例子中，`x`是一个 Option 类型的变量，其中存储了一个整数值 5。我们可以使用`unwrap`函数来获取`x`中的值，并将其存储在`value`变量中。由于`x`中确实有一个值，所以这里不会触发`unwrap`函数的 panic。最后我们将`value`的值打印出来，输出结果为`value: 5`。
+
+需要注意的是，如果在调用`unwrap`函数时，Option 类型的变量中没有存储值，那么就会触发 panic，这是 Rust 语言中的一种运行时错误。因此，在使用`unwrap`函数时，需要确保 Option 类型的变量中确实存储了一个值。如果不能确定 Option 类型变量中是否存储了值，那么可以使用`match`语句或`if let`语句等方式来进行安全的解包操作。
+
+## 14. Option 和 Result 两个枚举类型都是内置的枚举类型吗？
+
+在 Rust 标准库中，Option 和 Result 两个重要的枚举类型是内置的，它们都属于枚举类型，其定义如下：
+
+```rust
+enum Option<T> {
+    Some(T),
+    None,
+}
+
+enum Result<T, E> {
+    Ok(T),
+    Err(E),
+}
+```
+
+Option 枚举类型用于表示一个值可能存在也可能不存在的情况。当我们需要在代码中表示某个值可能为空时，就可以使用 Option 类型。例如，函数返回值可能为空，我们就可以使用 `Option` 类型来表示。在使用 Option 类型时，我们可以使用 `Some` 来包裹存在的值，使用 `None` 来表示不存在的值。
+
+Result 枚举类型用于表示一个操作可能成功也可能失败的情况。当我们需要在代码中处理可能出现的错误时，就可以使用 Result 类型。例如，打开文件时可能会出现错误，我们就可以使用 Result 类型来表示打开文件的结果。在使用 Result 类型时，我们可以使用 `Ok` 来包裹操作成功的结果，使用 `Err` 来表示操作失败，并携带错误信息。
+
+## 15. 举一个使用 Result 进行错误传播的例子
+
+下面是一个 Rust 中使用 `Result` 进行错误传播的例子：
+
+```rust
+use std::fs::File;
+use std::io::prelude::*;
+use std::io::Error;
+
+fn read_file_contents(filename: &str) -> Result<String, Error> {
+    let mut file = File::open(filename)?;
+    let mut contents = String::new();
+    file.read_to_string(&mut contents)?;
+    Ok(contents)
+}
+
+fn main() {
+    let filename = "example.txt";
+    match read_file_contents(filename) {
+        Ok(contents) => println!("Contents of {}:\n{}", filename, contents),
+        Err(error) => println!("Failed to read {}: {}", filename, error),
+    }
+}
+```
+
+上面的代码中，`read_file_contents` 函数会尝试打开一个文件并读取其中的内容，如果一切正常，它将返回一个包含文件内容的 `Ok` 变量；否则，它将返回一个包含错误信息的 `Err` 变量。在 `main` 函数中，使用 `match` 语句处理 `read_file_contents` 的返回值。如果返回的是 `Ok` 变量，就将文件内容打印出来；如果返回的是 `Err` 变量，就将错误信息打印出来。
+
+这样的写法可以使代码更加清晰易读，也更容易排查和解决错误。运行代码见：[readfile.rs](../../concepts/src/readfile.rs)。
+
+## 15. rust里面的 ? 运算符的作用是什么
+
