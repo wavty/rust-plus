@@ -1,39 +1,39 @@
 # Rust Plus
 
-Rust Plus是一个用于保存在学习Rust编程语言时编写的代码示例的项目。它包含了许多简单和复杂的代码示例，以帮助您了解Rust的语法和特性，并深入了解Rust的应用场景。
+Rust Plus is a project for storing code examples written while learning the Rust programming language. It contains many simple and complex code examples to help you understand Rust's syntax and features and gain a deep understanding of Rust's application scenarios.
 
-## 特性
+## Features
 
-Rust Plus具有以下特性：
+Rust Plus has the following features:
 
-- 包含了许多简单和复杂的Rust代码示例，以便您更好地了解和学习Rust编程语言。
-- 所有示例都具有详细的注释和说明，以帮助您更好地理解示例代码。
-- 代码结构清晰、易于阅读和使用。
-- 持续更新和维护。
+- Contains many simple and complex Rust code examples to help you better understand and learn the Rust programming language.
+- All examples have detailed comments and explanations to help you better understand the example code.
+- Code structure is clear, easy to read, and use.
+- Continuously updated and maintained.
 
-## 使用说明
+## Usage
 
-Rust Plus可以通过以下步骤进行使用：
+Rust Plus can be used by following these steps:
 
-1. 下载或克隆Rust Plus项目到本地：
+1. Download or clone the Rust Plus project to your local machine:
 
 ```
 git clone https://github.com/wavty/rust-plus.git
 ```
 
-2. 根据您需要学习的Rust特性或场景，浏览项目中的代码示例。
-3. 使用Rust编译器将示例代码编译为可执行文件并运行，以查看代码在实际运行时的表现。
-4. 阅读并理解代码注释和说明，以更好地掌握Rust编程语言。
+2. Browse the code examples in the project based on the Rust features or scenarios you need to learn.
+3. Use the Rust compiler to compile the example code into an executable file and run it to see how the code performs in actual operation.
+4. Read and understand the code comments and explanations to better master the Rust programming language.
 
-## 贡献
+## Contribution
 
-我们欢迎并鼓励任何形式的贡献，包括但不限于提交错误修复、改进代码质量、添加新的示例代码等。如果您希望为Rust Plus做出贡献，请通过以下方式联系我们：
+We welcome and encourage any form of contribution, including but not limited to submitting error fixes, improving code quality, and adding new example code. If you would like to contribute to Rust Plus, please contact us through the following ways:
 
-1. 提交GitHub Issue，说明您发现的问题或需要改进的内容。
-2. 提交Pull Request，修复现有问题或添加新的代码示例。
+1. Submit a GitHub issue, explaining the problem you found or what needs to be improved.
+2. Submit a pull request to fix existing problems or add new code examples.
 
-我们感谢您的贡献！
+We appreciate your contributions!
 
-## 版权声明
+## Copyright Statement
 
-Rust Plus项目的所有代码均遵循MIT许可证。有关详细信息，请参阅LICENSE文件。
+All code for the Rust Plus project is licensed under the MIT license. For more information, please see the LICENSE file.
