@@ -4,6 +4,7 @@ nav:
   - 首页: index.md
   - 基础知识:
       - concepts/concepts.md
+      - concepts/httpie.md
 # https://juejin.cn/post/7066641709198737416
 theme:
   name: material
