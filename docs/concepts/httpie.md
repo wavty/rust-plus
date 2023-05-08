@@ -1,44 +1,30 @@
-# HTTPie Design Overview
+# HTTPie Design
 
-## Introduction
+## 架构
 
-HTTPie is a command-line tool designed to make HTTP requests easy and intuitive for developers. Built in Rust, HTTPie provides a more user-friendly and aesthetically-pleasing interface than other popular tools like curl.
-
-In this design overview, we'll explore the key features of HTTPie, its design goals, and how it works under the hood.
-
-## Features
-
-HTTPie comes packed with features that make it a powerful tool for making HTTP requests. Some of the key features include:
-
-- Syntax highlighting of request/response bodies
-- JSON and form data support
-- Customizable output formatting
-- HTTPS support
-- Support for authentication
-- Support for cookies
-- Support for proxies
-- Support for timeouts
-- And much more!
-
-## Design Goals
-
-HTTPie was designed with several goals in mind, including:
-
-- Simplicity: HTTPie aims to make HTTP requests simple and intuitive for developers of all levels of experience.
-- User-friendly: HTTPie's output is designed to be aesthetically pleasing and easy to read, with syntax highlighting and other visual aids.
-- Customizable: HTTPie provides a range of options for customizing the output of HTTP requests, including output formatting, headers, and more.
-- Extensible: HTTPie is built on a modular architecture, making it easy to extend and customize with new plugins and features.
-
-## Architecture
-
-HTTPie is built in Rust, a systems programming language known for its speed, safety, and concurrency. Under the hood, HTTPie consists of several key components, including:
+HTTPie is built in Rust, a systems programming language known for its speed, safety, and concurrency.
 
 ![httpie-framework](../images/httpie-framework.png)
 
-- The HTTP client: This is the core component of HTTPie, responsible for making HTTP requests and handling responses. The HTTP client is built on top of Rust's `reqwest` library, which provides a high-level HTTP client API.
-- The parser: HTTPie's parser is responsible for parsing command-line arguments and constructing HTTP requests. The parser uses Rust's `clap` library, a powerful command-line argument parser, to handle command-line arguments.
-- The output formatter: HTTPie's output formatter is responsible for formatting the output of HTTP requests in a user-friendly and aesthetically-pleasing way. The output formatter uses Rust's `serde` library to serialize data into various output formats, including JSON, YAML, and others.
+## 基础知识
 
-## Conclusion
+### 1. `clap::Parser` 生成的常用属性
 
-HTTPie is a powerful, user-friendly command-line tool for making HTTP requests, built in Rust. With its customizable output formatting, support for various HTTP features, and modular architecture, HTTPie is a great tool for developers of all levels of experience.
+| 属性名称        | 含义                   | 使用示例                                                                 | 解释                                                                                           |
+| --------------- | ---------------------- | ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------- |
+| `about`         | 关于此程序的简短描述   | `#[command(about = "Simple program to greet a person")]`                 | 用于设置程序的简短描述，通常在帮助信息中使用                                                   |
+| `author`        | 程序作者               | `#[command(author = "wavty")]`                                           | 用于设置程序的作者，通常在帮助信息中使用                                                       |
+| `version`       | 程序版本               | `#[command(version)]`                                                    | 用于设置程序的版本，通常在帮助信息中使用                                                       |
+| `long_about`    | 关于此程序的长描述     | `#[command(long_about = "This is a simple program to greet a person.")]` | 用于设置程序的长描述，通常在帮助信息中使用                                                     |
+| `name`          | 程序的名字             | `#[command(name = "greet")]`                                             | 用于设置程序的名字，通常在帮助信息中使用                                                       |
+| `arg`           | 定义一个命令行参数     | `#[arg(short, long)]`                                                    | 用于定义命令行参数的选项和标志，例如 `-h` 或 `--help`                                          |
+| `subcommand`    | 定义一个子命令         | `#[subcommand(greet)]`                                                   | 用于定义一个子命令，例如 `git commit` 中的 `commit` 子命令                                     |
+| `setting`       | 设置程序或命令的选项   | `#[command(setting = AppSettings::ColoredHelp)]`                         | 用于设置程序或命令的选项，例如启用带颜色的帮助信息                                             |
+| `group`         | 定义一组相互关联的参数 | `#[arg(group = "greeting")]`                                             | 用于定义一组相互关联的参数，例如 `--greeting hello --name World` 中的 `--greeting` 和 `--name` |
+| `validator`     | 验证参数的有效性       | `#[arg(validator = validate_count)]`                                     | 用于定义验证参数的函数，例如检查参数是否在一定范围内                                           |
+| `required`      | 声明参数为必需         | `#[arg(required = true)]`                                                | 用于声明参数为必需的，如果未提供则会引发错误                                                   |
+| `default_value` | 设置参数的默认值       | `#[arg(default_value = "World")]`                                        | 用于设置参数的默认值，如果未提供参数，则使用此值                                               |
+
+### 2. rust 的 MIME 类型指的是什么？
+
+在 Rust 中，MIME 类型是指 Multipurpose Internet Mail Extensions（多用途 Internet 邮件扩展）类型的缩写，它是用于在互联网上传输各种类型的文件和数据的一种标准方式。MIME 类型以字符串的形式表示，通常使用扩展名或文件类型来确定给定文件的 MIME 类型。例如，MIME 类型"text/plain"通常与.txt 文件扩展名相关联。
