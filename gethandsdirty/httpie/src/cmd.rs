@@ -10,12 +10,12 @@ use std::str::FromStr;
 pub struct Opts {
     /// httpie subcommand
     #[command(subcommand)]
-    subcmd: Subcmd,
+    pub subcmd: Subcmd,
 }
 
 // ref: https://docs.rs/clap/4.2.7/clap/_derive/_tutorial/index.html#subcommands
 #[derive(Subcommand, Debug)]
-enum Subcmd {
+pub enum Subcmd {
     /// Initiate http get request
     Get(Get),
     /// Initiate http post request
@@ -24,10 +24,10 @@ enum Subcmd {
 
 // args validate: https://docs.rs/clap/4.2.7/clap/_derive/_tutorial/index.html#validated-values
 #[derive(Args, Debug)]
-struct Get {
+pub struct Get {
     /// HTTP request url
     #[arg(value_parser = parse_url)]
-    url: String,
+    pub url: String,
 }
 
 fn parse_url(s: &str) -> Result<String> {
@@ -36,19 +36,19 @@ fn parse_url(s: &str) -> Result<String> {
 }
 
 #[derive(Args, Debug)]
-struct Post {
+pub struct Post {
     /// HTTP request url
     #[arg(value_parser = parse_url)]
-    url: String,
+    pub url: String,
     /// HTTP request body
     #[arg(value_parser = parse_kv_pair)]
-    body: Vec<KvPair>,
+    pub body: Vec<KvPair>,
 }
 
 #[derive(Debug, Clone)]
-struct KvPair {
-    key: String,
-    value: String,
+pub struct KvPair {
+    pub key: String,
+    pub value: String,
 }
 
 impl FromStr for KvPair {
