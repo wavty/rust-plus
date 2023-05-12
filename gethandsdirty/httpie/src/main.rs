@@ -67,6 +67,7 @@ fn print_body(m: Option<Mime>, body: &String) {
         Some(v) if v == mime::APPLICATION_JSON => {
             println!("{}", jsonxf::pretty_print(body).unwrap().cyan())
         }
-        _ => println!("{}", body),
+        _ => println!("{}", body.red()),
     }
 }
+// 测试命令：./httpie.exe get https://raw.githubusercontent.com/tmilkd/rust-plus/main/package.json

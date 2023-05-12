@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package abi; // abi is the package name, generate abi.rs file.
+
+// a sorted array of spec, server proceed the spec one by one.
+message ImageSpec {repeated Spec specs = 1;}
+
+// Describes the size of the image to be changed.
+message Resize {
+    uint32 width = 1;
+    uint32 height = 2;
+
+    // Resize type.
+    enum ResizeType {
+        NORMAL = 0; // 普通
+        SEAM_CARVE = 1; // 缝合
+    }
+    ResizeType rtype = 3;
+
+    // Resize sample filter.
+    enum SampleFilter {
+        UNDEFINED = 0; // 未定义
+        NEAREST = 1; // 最近邻过滤器
+        TRIANGLE = 2; // 三角形过滤器
+        CATMULL_ROM = 3; // 卡特穆勒过滤器
+        GAUSSIAN = 4; // 高斯过滤器
+        LANCZOS = 5; // 兰索斯过滤器
+    }
+    SampleFilter filter = 4;
+}
+
+// Handle image capture.
+message Crop {
+    uint32 x1 = 1;
+    uint32 y1 = 2;
+    uint32 x2 = 3;
+    uint32 y2 = 4;
+}
+
+// Handle image horizontal flip.
+message Fliph {}
+
+// Handle image vertical flip.
+message Flipv {}
+
+// Handle image contrast.
+message Contrast {
+    float contrast = 1;
+}
+
+// Handle image filter.
+message Filter {
+    enum Filter {
+        UNSPECIFIED = 0; // 未指定
+        OCEANIC = 1; // 海洋
+        ISLAND = 2; // 岛屿
+        MARINE = 3; // 海洋
+        // more: https://docs.rs/photon-rs/0.3.1/photon_rs/filters/fn.filter.html
+    }
+    Filter filter = 1;
+}
+
+// Handle image Watermark.
+message Watermark {
+    uint32 x = 1;
+    uint32 y = 2;
+}
+
+// Image spec instance.
+message Spec {
+    oneof data {
+        Resize resize = 1;
+        Crop crop = 2;
+        Fliph fliph = 3;
+        Flipv flipv = 4;
+        Contrast contrast = 5;
+        Filter filter = 6;
+        Watermark watermark = 7;
+    }
+}

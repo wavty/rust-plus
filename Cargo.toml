@@ -3,5 +3,6 @@
 members = [
     "concepts",
     "src/scrape_url",
-    "gethandsdirty/httpie"
+    "gethandsdirty/httpie",
+    "gethandsdirty/thumbor"
 ]
