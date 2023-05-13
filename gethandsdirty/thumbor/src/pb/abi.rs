@@ -84,7 +84,7 @@ pub mod resize {
         /// 高斯过滤器
         Gaussian = 4,
         /// 兰索斯过滤器
-        Lanczos = 5,
+        Lanczos3 = 5,
     }
     impl SampleFilter {
         /// String value of the enum field names used in the ProtoBuf definition.
@@ -98,7 +98,7 @@ pub mod resize {
                 SampleFilter::Triangle => "TRIANGLE",
                 SampleFilter::CatmullRom => "CATMULL_ROM",
                 SampleFilter::Gaussian => "GAUSSIAN",
-                SampleFilter::Lanczos => "LANCZOS",
+                SampleFilter::Lanczos3 => "LANCZOS3",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -109,7 +109,7 @@ pub mod resize {
                 "TRIANGLE" => Some(Self::Triangle),
                 "CATMULL_ROM" => Some(Self::CatmullRom),
                 "GAUSSIAN" => Some(Self::Gaussian),
-                "LANCZOS" => Some(Self::Lanczos),
+                "LANCZOS3" => Some(Self::Lanczos3),
                 _ => None,
             }
         }

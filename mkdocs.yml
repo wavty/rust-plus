@@ -5,6 +5,7 @@ nav:
   - 基础知识:
       - concepts/concepts.md
       - concepts/httpie.md
+      - concepts/thumbor.md
 # https://juejin.cn/post/7066641709198737416
 theme:
   name: material
@@ -32,11 +33,8 @@ markdown_extensions:
   - pymdownx.mark #文本高亮
   - pymdownx.tilde #删除线
   - pymdownx.inlinehilite
-  - pymdownx.snippets
   - pymdownx.superfences
-  - codehilite:
-      use_pygments: true
-      linenums: true
+  # - pymdownx.snippets
 
 # Repository https://squidfunk.github.io/mkdocs-material/setup/adding-a-git-repository/#adding-a-git-repository
 repo_name: wavty/rust-plus

@@ -24,7 +24,7 @@ message Resize {
         TRIANGLE = 2; // 三角形过滤器
         CATMULL_ROM = 3; // 卡特穆勒过滤器
         GAUSSIAN = 4; // 高斯过滤器
-        LANCZOS = 5; // 兰索斯过滤器
+        LANCZOS3 = 5; // 兰索斯过滤器
     }
     SampleFilter filter = 4;
 }
