@@ -1,13 +1,15 @@
-use axum::{routing::get, Router};
-use std::net::SocketAddr;
+use serde::Deserialize;
+mod pb;
+
+// 参数实现 Deserialize trait，则 axum 会自动识别并解析
+#[derive(Deserialize)]
+struct Params {
+    spec: String,
+    url: String,
+}
 
 #[tokio::main]
 async fn main() {
-    let app = Router::new().route("/", get(|| async { "Hello, Axum!" }));
-
-    let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
-    axum::Server::bind(&addr)
-        .serve(app.into_make_service())
-        .await
-        .unwrap();
+    // initialize tracing
+    tracing_subscriber::fmt::init();
 }
