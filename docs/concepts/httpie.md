@@ -1,12 +1,12 @@
-# HTTPie Design
+# 设计 HTTPie
 
-## 架构
+## 一、架构
 
 [HTTPie](https://github.com/wavty/rust-plus/blob/main/gethandsdirty/httpie/src/main.rs) is built in Rust, a systems programming language known for its speed, safety, and concurrency.
 
 ![httpie-framework](../images/httpie-framework.png)
 
-## 基础知识
+## 二、基础知识
 
 ### 1. `clap::Parser` 生成的常用属性
 

@@ -2,7 +2,7 @@
 
 members = [
     "concepts",
-    "src/scrape_url",
     "gethandsdirty/httpie",
+    "gethandsdirty/scrape_url",
     "gethandsdirty/thumbor"
 ]

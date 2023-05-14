@@ -1,7 +1,4 @@
-use axum::{
-    handler::get,
-    Router,
-};
+use axum::{routing::get, Router};
 use std::net::SocketAddr;
 
 #[tokio::main]
