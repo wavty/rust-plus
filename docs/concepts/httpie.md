@@ -1,4 +1,4 @@
-# 设计 HTTPie
+# 设计 httpie
 
 ## 一、架构
 

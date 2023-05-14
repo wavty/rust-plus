@@ -1,15 +1,20 @@
 site_name: rust-plus
+site_url: https://wavty.github.io/rust-plus/
+site_author: wavty
 docs_dir: ./docs
-nav:
-  - 首页: index.md
-  - 基础知识:
-      - concepts/concepts.md
-      - concepts/httpie.md
-      - concepts/thumbor.md
-# https://juejin.cn/post/7066641709198737416
+repo_name: wavty/rust-plus
+repo_url: https://github.com/wavty/rust-plus/
+edit_uri: edit/main/docs/
+
+# https://github.com/squidfunk/mkdocs-material/blob/master/mkdocs.yml
 theme:
   name: material
-  codehilite: true
+  features:
+    - announce.dismiss
+    - content.action.edit
+    - content.action.view
+    - content.code.annotate
+    - content.code.copy
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
@@ -22,20 +27,31 @@ theme:
       toggle:
         icon: material/weather-sunny
         name: 亮色模式
+  icon:
+    repo: fontawesome/brands/github-alt
 
 markdown_extensions:
+  - toc:
+      permalink: true
+      title: On this page
+  - tables # 表格
   - pymdownx.highlight:
       anchor_linenums: true
-  - admonition #MkDocs 警告框
-  - footnotes #脚注
-  - meta #自定义文章元数据
-  - pymdownx.caret #下划线
-  - pymdownx.mark #文本高亮
-  - pymdownx.tilde #删除线
-  - pymdownx.inlinehilite
+      auto_title: true
+      linenums: true
+      linenums_style: pymdownx-inline
   - pymdownx.superfences
-  # - pymdownx.snippets
+  - admonition # MkDocs 警告框
+  - footnotes # 脚注
+  - meta # 自定义文章元数据
+  - pymdownx.caret # 下划线
+  - pymdownx.mark # 文本高亮
+  - pymdownx.tilde # 删除线
+  - pymdownx.snippets # 内嵌其他文件，可官网搜索使用方法
 
-# Repository https://squidfunk.github.io/mkdocs-material/setup/adding-a-git-repository/#adding-a-git-repository
-repo_name: wavty/rust-plus
-repo_url: https://github.com/wavty/rust-plus
+nav:
+  - 首页: index.md
+  - 基础知识:
+      - concepts/concepts.md
+      - concepts/httpie.md
+      - concepts/thumbor.md
