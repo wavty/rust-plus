@@ -1,19 +1,29 @@
+use anyhow::Result;
 use std::{
+    collections::hash_map::DefaultHasher,
+    hash::{Hash, Hasher},
     net::SocketAddr,
     num::NonZeroUsize,
-    sync::{Arc, Mutex},
+    sync::Arc,
 };
 
-use axum::{extract::Path, http::StatusCode, routing::get, Router};
+use crate::pb::{filter, resize, Spec};
+use axum::{
+    extract::{Extension, Path},
+    http::{HeaderMap, StatusCode},
+    routing::get,
+    Router,
+};
 use bytes::Bytes;
 use lru::LruCache;
 use pb::ImageSpec;
 use percent_encoding::{percent_decode_str, percent_encode, NON_ALPHANUMERIC};
+use reqwest::header;
 use serde::Deserialize;
+use tokio::sync::Mutex;
 use tower::ServiceBuilder;
 use tower_http::add_extension::AddExtensionLayer;
-
-use crate::pb::{filter, resize, Spec};
+use tracing::instrument;
 mod pb;
 
 // 测试代码
@@ -51,13 +61,45 @@ async fn main() {
         .unwrap();
 }
 
-async fn generate(Path(Params { spec, url }): Path<Params>) -> Result<String, StatusCode> {
-    let url = percent_decode_str(&url).decode_utf8_lossy();
+async fn generate(
+    Path(Params { spec, url }): Path<Params>,
+    Extension(cache): Extension<Cache>,
+) -> Result<(HeaderMap, Vec<u8>), StatusCode> {
+    let url: &str = &percent_decode_str(&url).decode_utf8_lossy();
     let spec: ImageSpec = spec
         .as_str()
         .try_into()
         .map_err(|_| StatusCode::BAD_REQUEST)?;
-    Ok(format!("url: {},\nspec: {:#?}", url, spec))
+    let data = retrieve_image(&url, cache)
+        .await
+        .map_err(|_| StatusCode::BAD_REQUEST)?;
+    // TODO: 生成图片
+    let mut headers = HeaderMap::new();
+    headers.insert(header::CONTENT_TYPE, "image/jpeg".parse().unwrap());
+    Ok((headers, data.to_vec()))
+}
+
+#[instrument(level = "info", skip(cache))]
+async fn retrieve_image(url: &str, cache: Cache) -> Result<Bytes> {
+    let mut hasher = DefaultHasher::new();
+    url.hash(&mut hasher);
+    let key = hasher.finish();
+
+    let g = &mut cache.lock().await;
+    let data = match g.get(&key) {
+        Some(v) => {
+            tracing::info!("cache hit {}", key);
+            v.to_owned()
+        }
+        None => {
+            tracing::info!("cache miss {}", key);
+            let resp = reqwest::get(url).await?;
+            let data = resp.bytes().await?;
+            g.put(key, data.clone());
+            data
+        }
+    };
+    Ok(data)
 }
 
 fn print_test_url(url: &str) {
