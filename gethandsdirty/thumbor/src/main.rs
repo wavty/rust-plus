@@ -25,6 +25,7 @@ use tower::ServiceBuilder;
 use tower_http::add_extension::AddExtensionLayer;
 use tracing::instrument;
 mod pb;
+mod engine;
 
 // 测试代码
 // ./httpie get "http://127.0.0.1:3000/image/CgoKCAjYBBCgBiADCgY6BAgUEBQKBDICCAM/https%3A%2F%2Fimages.pexels.com%2Fphotos%2F2470905%2Fpexels-photo-2470905.jpeg"
