@@ -24,8 +24,10 @@ use tokio::sync::Mutex;
 use tower::ServiceBuilder;
 use tower_http::add_extension::AddExtensionLayer;
 use tracing::instrument;
-mod pb;
 mod engine;
+mod pb;
+use engine::{Engine, Photon};
+use image::ImageOutputFormat;
 
 // 测试代码
 // ./httpie get "http://127.0.0.1:3000/image/CgoKCAjYBBCgBiADCgY6BAgUEBQKBDICCAM/https%3A%2F%2Fimages.pexels.com%2Fphotos%2F2470905%2Fpexels-photo-2470905.jpeg"
@@ -55,7 +57,7 @@ async fn main() {
     // 运行web服务器
     let addr: SocketAddr = "127.0.0.1:3000".parse().unwrap();
     tracing::info!("listening on http://{}", addr);
-    print_test_url("https://img-blog.csdnimg.cn/7ab510402f3e4f8295d76764a3639eed.png");
+    print_test_url("https://images.pexels.com/photos/7914464/pexels-photo-7914464.jpeg");
     axum::Server::bind(&addr)
         .serve(app.into_make_service())
         .await
@@ -74,10 +76,20 @@ async fn generate(
     let data = retrieve_image(&url, cache)
         .await
         .map_err(|_| StatusCode::BAD_REQUEST)?;
-    // TODO: 生成图片
+
+    // 使用 image engine 处理图片
+    let mut engine: Photon = data
+        .try_into()
+        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+    engine.apply(&spec.specs);
+
+    // 生成图片
+    let image = engine.generate(ImageOutputFormat::Jpeg(85));
+    tracing::info!("Finished processing: image size {}", image.len());
+
     let mut headers = HeaderMap::new();
     headers.insert(header::CONTENT_TYPE, "image/jpeg".parse().unwrap());
-    Ok((headers, data.to_vec()))
+    Ok((headers, image))
 }
 
 #[instrument(level = "info", skip(cache))]
@@ -105,9 +117,9 @@ async fn retrieve_image(url: &str, cache: Cache) -> Result<Bytes> {
 
 fn print_test_url(url: &str) {
     use std::borrow::Borrow;
-    let spec1 = Spec::new_resize(500, 800, resize::SampleFilter::CatmullRom);
+    let spec1 = Spec::new_resize(500, 800, resize::SampleFilter::Gaussian);
     let spec2 = Spec::new_watermark(20, 20);
-    let spec3 = Spec::new_filter(filter::Filter::Marine);
+    let spec3 = Spec::new_filter(filter::Filter::Oceanic);
     let image_spec = ImageSpec::new(vec![spec1, spec2, spec3]);
     let s: String = image_spec.borrow().into();
     let test_image = percent_encode(url.as_bytes(), NON_ALPHANUMERIC).to_string();
