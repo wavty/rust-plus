@@ -10,7 +10,7 @@ use std::{
 use crate::pb::{filter, resize, Spec};
 use axum::{
     extract::{Extension, Path},
-    http::{HeaderMap, StatusCode},
+    http::{HeaderMap, HeaderValue, StatusCode},
     routing::get,
     Router,
 };
@@ -88,7 +88,7 @@ async fn generate(
     tracing::info!("Finished processing: image size {}", image.len());
 
     let mut headers = HeaderMap::new();
-    headers.insert(header::CONTENT_TYPE, "image/jpeg".parse().unwrap());
+    headers.insert(header::CONTENT_TYPE, HeaderValue::from_static("image/jpeg"));
     Ok((headers, image))
 }
 
@@ -117,7 +117,7 @@ async fn retrieve_image(url: &str, cache: Cache) -> Result<Bytes> {
 
 fn print_test_url(url: &str) {
     use std::borrow::Borrow;
-    let spec1 = Spec::new_resize(500, 800, resize::SampleFilter::Gaussian);
+    let spec1 = Spec::new_resize(500, 800, resize::SampleFilter::Nearest);
     let spec2 = Spec::new_watermark(20, 20);
     let spec3 = Spec::new_filter(filter::Filter::Oceanic);
     let image_spec = ImageSpec::new(vec![spec1, spec2, spec3]);

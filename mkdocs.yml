@@ -55,3 +55,4 @@ nav:
       - concepts/concepts.md
       - concepts/httpie.md
       - concepts/thumbor.md
+      - concepts/sql_query.md
