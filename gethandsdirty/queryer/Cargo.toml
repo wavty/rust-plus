@@ -1,0 +1,20 @@
+[package]
+name = "queryer"
+version = "0.1.0"
+edition = "2021"
+
+[[example]]
+name = "dialect"
+
+[dependencies]
+anyhow = "1.0.71"
+async-trait = "0.1.68"
+polars = { version = "0.30.0", features = ["json", "lazy"] }
+reqwest = { version = "0.11.18", default-features = false, features = ["rustls-tls"] }
+sqlparser = "0.34.0"
+tokio = { version = "1.28.2", features = ["fs"] }
+tracing = "0.1.37"
+
+[dev-dependencies]
+tokio = { version = "1.28.2", features = ["full"] }
+tracing-subscriber = "0.3.17"

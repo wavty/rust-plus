@@ -4,5 +4,6 @@ members = [
     "concepts",
     "gethandsdirty/httpie",
     "gethandsdirty/scrape_url",
-    "gethandsdirty/thumbor"
+    "gethandsdirty/thumbor",
+    "gethandsdirty/queryer"
 ]
