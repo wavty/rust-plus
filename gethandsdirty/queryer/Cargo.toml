@@ -3,8 +3,11 @@ name = "queryer"
 version = "0.1.0"
 edition = "2021"
 
+# https://doc.rust-lang.org/cargo/reference/cargo-targets.html#examples
 [[example]]
 name = "dialect"
+[[example]]
+name = "covid"
 
 [dependencies]
 anyhow = "1.0.71"

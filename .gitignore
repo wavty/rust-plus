@@ -11,3 +11,4 @@ target/
 
 # Ignore all mkdocs build files
 site/
+*.csv
